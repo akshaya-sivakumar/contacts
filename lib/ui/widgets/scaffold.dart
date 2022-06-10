@@ -26,10 +26,11 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Contacts"),
+                Text(widget.heading ?? ""),
                 Row(
                   children: [
                     widget.dateWidget ?? Container(height: 1),
