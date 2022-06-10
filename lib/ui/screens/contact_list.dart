@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 import 'package:contacts/config.dart';
 import 'package:contacts/model/contacts_model.dart';
+import 'package:contacts/ui/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class ContactList extends StatefulWidget {
   const ContactList({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class _ContactListState extends State<ContactList>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late ContactsBloc contactsBloc;
+  DateTime selectedDate = DateTime.now();
   bool atoz = true;
   List<ContactsModel> contactlist = [];
   @override
@@ -32,49 +35,40 @@ class _ContactListState extends State<ContactList>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabController.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Contacts"),
-              IconButton(
-                  key: const Key("theme"),
-                  onPressed: () {
-                    currentTheme.switchTheme();
-                  },
-                  icon: const Icon(Icons.brightness_high))
-            ],
-          ),
-          backgroundColor: Theme.of(context).primaryColor,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(40),
-            child: TabBar(
-                key: const Key("tabbar"),
-                controller: tabController,
-                isScrollable: true,
-                onTap: (index) {},
-                tabs: List.generate(
-                    5,
-                    (index) => Tab(
-                          key: Key("tabbar$index"),
-                          text: "Contact ${index + 1}",
-                        ))),
-          ),
+      child: AppScaffold(
+        dateWidget: Text(
+          key: Key(DateFormat("d/M/y").format(selectedDate).toString()),
+          DateFormat("d/M/y").format(selectedDate).toString().toString(),
+          style: const TextStyle(fontSize: 10),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
+        heading: "Contacts",
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(40),
+          child: TabBar(
+              key: const Key("tabbar"),
+              controller: tabController,
+              isScrollable: true,
+              onTap: (index) {},
+              tabs: List.generate(
+                  5,
+                  (index) => Tab(
+                        key: Key("tabbar$index"),
+                        text: "Contact ${index + 1}",
+                      ))),
+        ),
+        floatingButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
-          key: const Key("floatbutton"),
+          key: const Key("datepicker"),
           onPressed: () {
-            setState(() {
+            _selectDate(context);
+            /* setState(() {
               atoz = !atoz;
             });
-            contactsBloc.add(SortContacts(contactlist, atoz));
+            contactsBloc.add(SortContacts(contactlist, atoz)); */
           },
           child: Text(atoz ? "Z to A" : "A to Z"),
         ),
-        body: BlocBuilder<ContactsBloc, ContactsState>(
+        child: BlocBuilder<ContactsBloc, ContactsState>(
           builder: (context, ContactsState state) {
             if (state is ContactsLoad) {
               return loadData(context);
@@ -95,7 +89,6 @@ class _ContactListState extends State<ContactList>
                         padding: const EdgeInsets.only(top: 20),
                         itemCount: state.contacts.length,
                         itemBuilder: (context, index) {
-                          log(index.toString());
                           return SizedBox(
                               key: Key("item$index"),
                               child: bodyData(state.contacts[index]));
@@ -141,6 +134,21 @@ class _ContactListState extends State<ContactList>
         )
       ],
     );
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null) {
+      setState(() {
+        selectedDate = selected;
+        log(selectedDate.toString());
+      });
+    }
   }
 
   Center loadData(BuildContext context) {

@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "/file",
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -89,3 +89,30 @@ class SwitchTheme extends Then1WithWorld<String, FlutterWorld> {
   @override
   RegExp get pattern => RegExp(r"I switch theme {string}");
 }
+
+class Datepicker extends ThenWithWorld<FlutterWorld> {
+  @override
+  Future<void> executeStep() async {
+    FlutterDriverReporter(logInfoMessages: true);
+    await FlutterDriverUtils.tap(world.driver, find.text('24'),
+        timeout: const Duration(seconds: 15));
+    await FlutterDriverUtils.tap(world.driver, find.text('OK'));
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"Then select date");
+}
+
+class Displaydate extends Then1WithWorld<String, FlutterWorld> {
+  @override
+  Future<void> executeStep(String input1) async {
+    final button = find.byValueKey(input1);
+
+    bool input1Exists =
+        await FlutterDriverUtils.isPresent(world.driver, button);
+    expect(input1Exists, true);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"Then selected date is {string}");
+}

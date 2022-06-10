@@ -11,12 +11,14 @@ Future<void> main() {
     ..stepDefinitions = [
       CheckGivenWidgets(),
       CheckTabWidgets(),
-      ClickTabButton(),
+      //ClickTabButton(),
       ScrollTillItemVisible(),
       CheckTabsWidgets(),
       ClickTabButton(),
       ScrollTillItemVisible(),
-      SwitchTheme()
+      SwitchTheme(), ClickTabButton(),
+      Datepicker(),
+      Displaydate()
     ]
     ..restartAppBetweenScenarios = true
     ..targetAppPath = "test_driver/app.dart";

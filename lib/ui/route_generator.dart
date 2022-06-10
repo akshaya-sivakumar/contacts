@@ -1,5 +1,7 @@
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 import 'package:contacts/ui/screens/contact_list.dart';
+import 'package:contacts/ui/screens/file_picker.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +16,10 @@ class RouteGenerator {
                   create: (context) => ContactsBloc(),
                   child: const ContactList(),
                 ));
+      case '/file':
+        return MaterialPageRoute(
+          builder: (context) => const Filepicker(),
+        );
       default:
         return _errorRoute();
     }
