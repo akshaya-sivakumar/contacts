@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
-import 'package:contacts/config.dart';
+
 import 'package:contacts/model/contacts_model.dart';
 import 'package:contacts/ui/widgets/scaffold.dart';
 import 'package:flutter/material.dart';

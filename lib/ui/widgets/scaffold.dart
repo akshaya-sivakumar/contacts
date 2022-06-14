@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../config.dart';
 
@@ -23,6 +22,7 @@ class AppScaffold extends StatefulWidget {
 }
 
 class _AppScaffoldState extends State<AppScaffold> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
