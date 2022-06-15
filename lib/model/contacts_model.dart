@@ -16,13 +16,4 @@ class ContactsModel {
     contacts = json['Contacts'];
     url = json['url'];
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['Contacts'] = contacts;
-    data['url'] = url;
-    return data;
-  }
 }

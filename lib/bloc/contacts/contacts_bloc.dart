@@ -17,6 +17,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         emit(ContactsDone(contacts));
       } catch (e) {
         emit(ContactsError());
+        throw ("error");
       }
     });
     on<SortContacts>((event, emit) async {
