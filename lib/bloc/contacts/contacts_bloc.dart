@@ -1,7 +1,8 @@
 import 'package:contacts/model/contacts_model.dart';
-import 'package:contacts/resources/contacts_repo.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../repository/contacts_repo.dart';
 
 part 'contacts_event.dart';
 part 'contacts_state.dart';

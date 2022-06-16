@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 
 import 'package:contacts/model/contacts_model.dart';
+import 'package:contacts/ui/widgets/row_widget.dart';
 import 'package:contacts/ui/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,10 +62,6 @@ class _ContactListState extends State<ContactList>
           key: const Key("datepicker"),
           onPressed: () {
             _selectDate(context);
-            /* setState(() {
-              atoz = !atoz;
-            });
-            contactsBloc.add(SortContacts(contactlist, atoz)); */
           },
           child: Text(atoz ? "Z to A" : "A to Z"),
         ),
@@ -91,7 +88,9 @@ class _ContactListState extends State<ContactList>
                         itemBuilder: (context, index) {
                           return SizedBox(
                               key: Key("item$index"),
-                              child: bodyData(state.contacts[index]));
+                              child: RowWidget(
+                                contactdetail: state.contacts[index],
+                              ));
                         },
                         separatorBuilder: (context, index) {
                           return const Divider(
@@ -104,35 +103,6 @@ class _ContactListState extends State<ContactList>
           },
         ),
       ),
-    );
-  }
-
-  Widget bodyData(ContactsModel contactdetail) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                contactdetail.name,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(contactdetail.contacts)
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Image.asset(
-            "lib/assets/contact.png",
-            height: 30,
-          ),
-        )
-      ],
     );
   }
 

@@ -33,7 +33,8 @@ class _AppScaffoldState extends State<AppScaffold> {
                 Text(widget.heading ?? ""),
                 Row(
                   children: [
-                    widget.dateWidget ?? Container(height: 1),
+                    widget.dateWidget ??
+                        Container(key: Key("datecontainer"), height: 1),
                     IconButton(
                         key: const Key("theme"),
                         onPressed: () {

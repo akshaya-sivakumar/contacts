@@ -33,6 +33,15 @@ void mainBloc() {
       expect: () => [isA<ContactsDone>()],
     );
 
+    /*  blocTest<ContactsBloc, ContactsState>(
+      'Fetch Api error check',
+      build: () => ContactsBloc(),
+      act: (bloc) => bloc.add(FetchContacts()),
+      wait: const Duration(seconds: 2),
+      skip: 1,
+      errors: () => ["error"],
+    ); */
+
     final file = File('test/test_resources/contact.json').readAsStringSync();
     contactResponses =
         List.from(json.decode(file).map((e) => ContactsModel.fromJson(e)));
