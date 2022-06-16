@@ -25,13 +25,14 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       emit(ContactsLoad());
       try {
         event.atoz
-            ? event.contacts.sort(
+            ? event.contacts!.sort(
                 (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()))
-            : event.contacts.sort(
+            : event.contacts!.sort(
                 (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
-        emit(ContactsDone(event.contacts));
+        emit(ContactsDone(event.contacts!));
       } catch (e) {
         emit(ContactsError());
+        throw ("error");
       }
     });
   }

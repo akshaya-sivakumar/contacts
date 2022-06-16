@@ -4,5 +4,5 @@ import 'package:flutter/widgets.dart';
 
 void main() {
   enableFlutterDriverExtension();
-  runApp(const MyApp());
+  runApp(const MyApp(Key("myapp")));
 }

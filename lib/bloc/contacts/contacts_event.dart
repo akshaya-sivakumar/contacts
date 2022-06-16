@@ -7,7 +7,7 @@ class FetchContacts extends ContactsEvent {
 }
 
 class SortContacts extends ContactsEvent {
-  List<ContactsModel> contacts;
+  List<ContactsModel>? contacts;
   bool atoz = true;
   SortContacts(this.contacts, this.atoz);
 }
