@@ -121,12 +121,12 @@ void main() {
       expect(find.byKey(Key("myapp")), findsOneWidget);
     });
 
-    testWidgets('Testing contact list screen', (WidgetTester tester) async {
+    /* testWidgets('Testing contact list screen', (WidgetTester tester) async {
       await tester.pumpWidget(const ContactList(
         key: Key("contact"),
       ));
 
       expect(find.byKey(Key("contact")), findsOneWidget);
-    });
+    }); */
   });
 }
