@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
+import 'package:contacts/config.dart';
 import 'package:contacts/model/contacts_model.dart';
 
 import 'package:test/test.dart';
