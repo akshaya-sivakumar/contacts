@@ -11,9 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/contacts/contacts_bloc.dart';
 
 void main() async {
+  runApp(const MyApp(Key("myapp")));
   WidgetsFlutterBinding.ensureInitialized();
   await currentTheme.retrieveBooleanValue();
-  runApp(const MyApp(Key("myapp")));
 }
 
 class MyApp extends StatefulWidget {
