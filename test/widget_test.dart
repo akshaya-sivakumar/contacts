@@ -27,12 +27,12 @@ void main() {
                         key: const Key("container"),
                       )),
                   floatingButton: TextButton(
-                      onPressed: () {
-                        currentTheme.getSharedPreferences();
-                        currentTheme.retrieveBooleanValue();
+                      onPressed: () async {
+                        await currentTheme.getSharedPreferences();
+                        await currentTheme.retrieveBooleanValue();
 
                         currentTheme.switchTheme();
-                        currentTheme.saveBoolValue();
+                        await currentTheme.saveBoolValue();
                       },
                       child: IconButton(
                           key: Key("iconbutton"),

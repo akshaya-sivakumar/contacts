@@ -2,13 +2,9 @@ import 'dart:developer';
 
 import 'package:contacts/config.dart';
 
-import 'package:contacts/ui/screens/contact_list.dart';
 import 'package:contacts/ui/screens/file_picker.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'bloc/contacts/contacts_bloc.dart';
 
 void main() async {
   runApp(const MyApp(Key("myapp")));
