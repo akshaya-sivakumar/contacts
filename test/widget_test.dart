@@ -1,26 +1,18 @@
-import 'dart:math';
-
-import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 import 'package:contacts/config.dart';
 
 import 'package:contacts/model/contacts_model.dart';
 import 'package:contacts/repository/contacts_repo.dart';
-import 'package:contacts/ui/screens/contact_list.dart';
+
 import 'package:contacts/ui/widgets/row_widget.dart';
 import 'package:contacts/ui/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:contacts/main.dart' as mainfile;
 
 void main() {
   group('ContactList Widget ', () {
     testWidgets('Testing Scaffold Widget', (WidgetTester tester) async {
-      mainfile.main();
-
-      await tester.pumpAndSettle();
-
       await tester.pumpWidget(MaterialApp(
         home: Material(
           child: Directionality(
