@@ -17,11 +17,10 @@ import 'package:contacts/main.dart' as mainfile;
 void main() {
   group('ContactList Widget ', () {
     testWidgets('Testing Scaffold Widget', (WidgetTester tester) async {
-      await mainfile.main();
+      mainfile.main();
 
       await tester.pumpAndSettle();
 
-      expect(find.byKey(Key("myapp")), findsOneWidget);
       await tester.pumpWidget(MaterialApp(
         home: Material(
           child: Directionality(
@@ -120,6 +119,14 @@ void main() {
       mainfile.main();
 
       expect(find.byKey(Key("myapp")), findsOneWidget);
+    });
+
+    testWidgets('Testing contact list screen', (WidgetTester tester) async {
+      await tester.pumpWidget(const ContactList(
+        key: Key("contact"),
+      ));
+
+      expect(find.byKey(Key("contact")), findsOneWidget);
     });
   });
 }

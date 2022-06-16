@@ -38,7 +38,6 @@ class _AppScaffoldState extends State<AppScaffold> {
                         key: Key("themeicon"),
                         onPressed: () {
                           currentTheme.switchTheme();
-                          Navigator.pushNamed(context, "/");
                         },
                         icon: const Icon(Icons.brightness_high)),
                   ],

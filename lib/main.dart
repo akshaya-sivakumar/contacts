@@ -10,11 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/contacts/contacts_bloc.dart';
 
-main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await currentTheme.retrieveBooleanValue();
   runApp(const MyApp(Key("myapp")));
-  await Future.delayed(Duration(seconds: 1));
 }
 
 class MyApp extends StatefulWidget {
