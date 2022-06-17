@@ -60,7 +60,12 @@ class _ContactListState extends State<ContactList>
           backgroundColor: Theme.of(context).primaryColor,
           key: const Key("datepicker"),
           onPressed: () {
-            _selectDate(context);
+            setState(() {
+              atoz = !atoz;
+            });
+            contactsBloc.add(SortContacts(contactlist, atoz));
+            contactsBloc.add(SortContacts(contactlist, atoz));
+            //   _selectDate(context);
           },
           child: Text(atoz ? "Z to A" : "A to Z"),
         ),
@@ -76,29 +81,8 @@ class _ContactListState extends State<ContactList>
             }
             if (state is ContactsDone) {
               contactlist = state.contacts;
-              return TabBarView(
-                key: const Key("listview"),
-                controller: tabController,
-                children: List.generate(
-                    5,
-                    (i) => ListView.separated(
-                        key: Key("tabview$i"),
-                        cacheExtent: 50,
-                        padding: const EdgeInsets.only(top: 20),
-                        itemCount: state.contacts.length,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                              key: Key("item$index"),
-                              child: RowWidget(
-                                contactdetail: state.contacts[index],
-                              ));
-                        },
-                        separatorBuilder: (context, index) {
-                          return const Divider(
-                            height: 40,
-                          );
-                        })),
-              );
+              return BodyData(
+                  tabController: tabController, state: state.contacts);
             }
             return loadData(context);
           },
@@ -107,7 +91,7 @@ class _ContactListState extends State<ContactList>
     );
   }
 
-  _selectDate(BuildContext context) async {
+/*   _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -119,13 +103,57 @@ class _ContactListState extends State<ContactList>
         selectedDate = selected;
       });
     }
-  }
+  } */
 
   Center loadData(BuildContext context) {
     return Center(
         child: CircularProgressIndicator(
       color: Theme.of(context).primaryColor,
     ));
+  }
+}
+
+class BodyData extends StatefulWidget {
+  const BodyData({
+    Key? key,
+    this.tabController,
+    required this.state,
+  }) : super(key: key);
+
+  final TabController? tabController;
+  final List state;
+
+  @override
+  State<BodyData> createState() => _BodyDataState();
+}
+
+class _BodyDataState extends State<BodyData>
+    with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return TabBarView(
+      key: const Key("listview"),
+      controller: widget.tabController ?? TabController(length: 5, vsync: this),
+      children: List.generate(
+          5,
+          (i) => ListView.separated(
+              key: Key("tabview$i"),
+              cacheExtent: 50,
+              padding: const EdgeInsets.only(top: 20),
+              itemCount: widget.state.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                    key: Key("item$index"),
+                    child: RowWidget(
+                      contactdetail: widget.state[index],
+                    ));
+              },
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  height: 40,
+                );
+              })),
+    );
   }
 }
 

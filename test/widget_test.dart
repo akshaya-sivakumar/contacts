@@ -166,6 +166,17 @@ void main() {
       );
     }
 
+    testWidgets('Testing contact list done screen',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+          home: Material(
+              child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: BodyData(
+                    state: contactResponses,
+                  )))));
+    });
+
     testWidgets('Testing contact list error screen',
         (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
