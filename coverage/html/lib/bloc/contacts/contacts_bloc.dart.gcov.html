@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-16 21:12:39</td>
+            <td class="headerValue">2022-06-17 09:56:30</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -70,11 +70,11 @@
 <a name="8"><span class="lineNum">       8 </span>            : part 'contacts_state.dart';</a>
 <a name="9"><span class="lineNum">       9 </span>            : </a>
 <a name="10"><span class="lineNum">      10 </span>            : class ContactsBloc extends Bloc&lt;ContactsEvent, ContactsState&gt; {</a>
-<a name="11"><span class="lineNum">      11 </span><span class="lineCov">          3 :   ContactsBloc() : super(ContactsInitial()) {</span></a>
-<a name="12"><span class="lineNum">      12 </span><span class="lineCov">          2 :     on&lt;FetchContacts&gt;((event, emit) async {</span></a>
-<a name="13"><span class="lineNum">      13 </span><span class="lineCov">          2 :       emit(ContactsLoad());</span></a>
+<a name="11"><span class="lineNum">      11 </span><span class="lineCov">          6 :   ContactsBloc() : super(ContactsInitial()) {</span></a>
+<a name="12"><span class="lineNum">      12 </span><span class="lineCov">          4 :     on&lt;FetchContacts&gt;((event, emit) async {</span></a>
+<a name="13"><span class="lineNum">      13 </span><span class="lineCov">          4 :       emit(ContactsLoad());</span></a>
 <a name="14"><span class="lineNum">      14 </span>            :       try {</a>
-<a name="15"><span class="lineNum">      15 </span><span class="lineCov">          3 :         final contacts = await ContactsRepository().data();</span></a>
+<a name="15"><span class="lineNum">      15 </span><span class="lineCov">          6 :         final contacts = await ContactsRepository().data();</span></a>
 <a name="16"><span class="lineNum">      16 </span><span class="lineCov">          1 :         contacts.sort(</span></a>
 <a name="17"><span class="lineNum">      17 </span><span class="lineCov">          6 :             (a, b) =&gt; a.name.toLowerCase().compareTo(b.name.toLowerCase()));</span></a>
 <a name="18"><span class="lineNum">      18 </span><span class="lineCov">          2 :         emit(ContactsDone(contacts));</span></a>
@@ -83,7 +83,7 @@
 <a name="21"><span class="lineNum">      21 </span>            :         throw (&quot;error&quot;);</a>
 <a name="22"><span class="lineNum">      22 </span>            :       }</a>
 <a name="23"><span class="lineNum">      23 </span>            :     });</a>
-<a name="24"><span class="lineNum">      24 </span><span class="lineCov">          2 :     on&lt;SortContacts&gt;((event, emit) async {</span></a>
+<a name="24"><span class="lineNum">      24 </span><span class="lineCov">          3 :     on&lt;SortContacts&gt;((event, emit) async {</span></a>
 <a name="25"><span class="lineNum">      25 </span><span class="lineCov">          2 :       emit(ContactsLoad());</span></a>
 <a name="26"><span class="lineNum">      26 </span>            :       try {</a>
 <a name="27"><span class="lineNum">      27 </span><span class="lineCov">          1 :         event.atoz</span></a>

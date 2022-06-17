@@ -20,12 +20,12 @@ class MyTheme with ChangeNotifier {
 
   saveBoolValue() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isDark", isdark);
+    //prefs.setBool("isDark", isdark);
   }
 
-  retrieveBooleanValue() async {
-    prefs = await SharedPreferences.getInstance();
-    isdark = prefs.getBool("isDark") ?? false;
+  /* retrieveBooleanValue() async {
+    //prefs = await SharedPreferences.getInstance();
     notifyListeners();
-  }
+    isdark = prefs.getBool("isDark") ?? false;
+  } */
 }

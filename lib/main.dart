@@ -1,15 +1,17 @@
 import 'dart:developer';
 
 import 'package:contacts/config.dart';
-
-import 'package:contacts/ui/screens/file_picker.dart';
+import 'package:contacts/ui/screens/contact_list.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/contacts/contacts_bloc.dart';
 
 void main() async {
   runApp(const MyApp(Key("myapp")));
   WidgetsFlutterBinding.ensureInitialized();
-  await currentTheme.retrieveBooleanValue();
+  //await currentTheme.retrieveBooleanValue();
 }
 
 class MyApp extends StatefulWidget {
@@ -53,6 +55,9 @@ class _MyAppState extends State<MyApp> {
           primaryColor: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: const Filepicker());
+        home: BlocProvider(
+          create: (context) => ContactsBloc()..add(FetchContacts()),
+          child: const ContactList(),
+        ));
   }
 }

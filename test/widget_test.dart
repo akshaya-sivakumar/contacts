@@ -1,14 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:bloc_test/bloc_test.dart';
+import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 import 'package:contacts/config.dart';
 
 import 'package:contacts/model/contacts_model.dart';
 import 'package:contacts/repository/contacts_repo.dart';
+import 'package:contacts/ui/screens/contact_list.dart';
 
 import 'package:contacts/ui/widgets/row_widget.dart';
 import 'package:contacts/ui/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:contacts/main.dart' as mainfile;
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('ContactList Widget ', () {
@@ -29,7 +37,7 @@ void main() {
                   floatingButton: TextButton(
                       onPressed: () async {
                         await currentTheme.getSharedPreferences();
-                        await currentTheme.retrieveBooleanValue();
+                        //await currentTheme.retrieveBooleanValue();
 
                         currentTheme.switchTheme();
                         await currentTheme.saveBoolValue();
@@ -38,7 +46,7 @@ void main() {
                           key: Key("iconbutton"),
                           onPressed: () {
                             currentTheme.getSharedPreferences();
-                            currentTheme.retrieveBooleanValue();
+                            //currentTheme.retrieveBooleanValue();
 
                             currentTheme.switchTheme();
                             currentTheme.saveBoolValue();
@@ -54,6 +62,7 @@ void main() {
           ),
         ),
       ));
+
       expect(find.byKey(Key("scaffoldkey")), findsOneWidget);
       await tester.tap(find.byType(TextButton));
       await tester.pump();
@@ -64,6 +73,7 @@ void main() {
       expect(find.byKey(const Key("container")), findsOneWidget);
       expect(find.byType(TextButton), findsOneWidget);
       expect(find.byKey(const Key("datetext")), findsOneWidget);
+
       expect(
         currentTheme.currentTheme(),
         ThemeMode.light,
@@ -103,22 +113,70 @@ void main() {
     });
 
     testWidgets('Testing main screen', (WidgetTester tester) async {
-      await tester.pumpWidget(const mainfile.MyApp(Key("myapp")));
-
       ContactsRepository.url =
           "http://5e53a76a31b9970014cf7c8c.mockapi.io/msf/getContacts";
+      await tester.pumpWidget(const mainfile.MyApp(Key("myapp")));
+
       currentTheme.switchTheme();
       mainfile.main();
-
       expect(find.byKey(Key("myapp")), findsOneWidget);
     });
 
-    /* testWidgets('Testing contact list screen', (WidgetTester tester) async {
-      await tester.pumpWidget(const ContactList(
-        key: Key("contact"),
-      ));
+    setUpAll(() {
+      // ↓ required to avoid HTTP error 400 mocked returns
+      HttpOverrides.global = null;
+    });
 
-      expect(find.byKey(Key("contact")), findsOneWidget);
-    }); */
+    Widget createWidgetForTesting({Widget? child}) {
+      return MaterialApp(
+        home: child,
+      );
+    }
+
+    final file = File('test/test_resources/contact.json').readAsStringSync();
+    List<ContactsModel> contactResponses =
+        List.from(json.decode(file).map((e) => ContactsModel.fromJson(e)));
+    testWidgets('Testing contact list screen', (WidgetTester tester) async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+
+      await tester.pumpWidget(createWidgetForTesting(
+          child: BlocProvider(
+        create: (context) => ContactsBloc()..add(FetchContacts()),
+        child: const ContactList(
+          key: Key("contactlist"),
+        ),
+      )));
+      await tester.pump();
+      /*  await tester.tap(find.byKey(Key("tabbar")));
+      await tester.pump(); */
+      await tester.tap(find.byKey(Key("datepicker")));
+      await tester.pump();
+
+      expect(find.byKey(Key("contactlist")), findsOneWidget);
+      await tester.pump();
+    });
+
+    setUpAll(() {
+      // ↓ required to avoid HTTP error 400 mocked returns
+      HttpOverrides.global = null;
+    });
+    Widget createWidgetForerrorTesting({Widget? child}) {
+      return MaterialApp(
+        home: child,
+      );
+    }
+
+    testWidgets('Testing contact list error screen',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(
+          home: Material(
+              child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: ErrorsWidget(
+                    key: Key("error"),
+                  )))));
+
+      expect(find.byKey(Key("error")), findsOneWidget);
+    });
   });
 }

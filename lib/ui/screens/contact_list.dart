@@ -49,7 +49,6 @@ class _ContactListState extends State<ContactList>
               key: const Key("tabbar"),
               controller: tabController,
               isScrollable: true,
-              onTap: (index) {},
               tabs: List.generate(
                   5,
                   (index) => Tab(
@@ -71,7 +70,9 @@ class _ContactListState extends State<ContactList>
               return loadData(context);
             }
             if (state is ContactsError) {
-              return const ErrorWidget();
+              return const ErrorsWidget(
+                key: Key("errorwidget"),
+              );
             }
             if (state is ContactsDone) {
               contactlist = state.contacts;
@@ -116,7 +117,6 @@ class _ContactListState extends State<ContactList>
     if (selected != null) {
       setState(() {
         selectedDate = selected;
-        log(selectedDate.toString());
       });
     }
   }
@@ -129,10 +129,8 @@ class _ContactListState extends State<ContactList>
   }
 }
 
-class ErrorWidget extends StatelessWidget {
-  const ErrorWidget({
-    Key? key,
-  }) : super(key: key);
+class ErrorsWidget extends StatelessWidget {
+  const ErrorsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -19,11 +19,6 @@ void main() {
 }
 
 void mainBloc() {
-  group("tets main", () {
-    /* test('model test', () {
-      mainfile.main();
-    }); */
-  });
   List<ContactsModel> contactResponses;
   group('Contacts Bloc', () {
     blocTest<ContactsBloc, ContactsState>(
