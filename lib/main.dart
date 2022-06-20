@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:contacts/config.dart';
 import 'package:contacts/ui/screens/contact_list.dart';
 

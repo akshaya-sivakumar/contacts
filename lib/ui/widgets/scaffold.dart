@@ -35,7 +35,7 @@ class _AppScaffoldState extends State<AppScaffold> {
                   children: [
                     if (widget.dateWidget != null) widget.dateWidget!,
                     IconButton(
-                        key: Key("themeicon"),
+                        key: const Key("themeicon"),
                         onPressed: () {
                           currentTheme.switchTheme();
                         },

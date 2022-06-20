@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 
 import 'package:contacts/model/contacts_model.dart';
