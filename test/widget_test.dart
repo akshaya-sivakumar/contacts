@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 import 'package:contacts/config.dart';
 
@@ -16,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:contacts/main.dart' as mainfile;
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('ContactList Widget ', () {
@@ -27,7 +25,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Center(
               child: AppScaffold(
-                  key: Key("scaffoldkey"),
+                  key: const Key("scaffoldkey"),
                   heading: "Contact list",
                   bottom: PreferredSize(
                       preferredSize: const Size.fromHeight(40),
@@ -43,7 +41,7 @@ void main() {
                         await currentTheme.saveBoolValue();
                       },
                       child: IconButton(
-                          key: Key("iconbutton"),
+                          key: const Key("iconbutton"),
                           onPressed: () {
                             currentTheme.getSharedPreferences();
                             //currentTheme.retrieveBooleanValue();
@@ -51,9 +49,9 @@ void main() {
                             currentTheme.switchTheme();
                             currentTheme.saveBoolValue();
                           },
-                          icon: Icon(Icons.brightness_1))),
+                          icon: const Icon(Icons.brightness_1))),
                   date: false,
-                  dateWidget: Text("date"),
+                  dateWidget: const Text("date"),
                   child: const Text(
                     "contact list view",
                     key: Key("datetext"),
@@ -63,10 +61,10 @@ void main() {
         ),
       ));
 
-      expect(find.byKey(Key("scaffoldkey")), findsOneWidget);
+      expect(find.byKey(const Key("scaffoldkey")), findsOneWidget);
       await tester.tap(find.byType(TextButton));
       await tester.pump();
-      await tester.tap(find.byKey(Key("iconbutton")));
+      await tester.tap(find.byKey(const Key("iconbutton")));
       await tester.pump();
       expect(find.text('Contact list'), findsOneWidget);
       expect(find.text('contact list view'), findsOneWidget);
@@ -77,10 +75,8 @@ void main() {
       expect(
         currentTheme.currentTheme(),
         ThemeMode.light,
-        reason:
-            "Since MaterialApp() was set to dark theme when it was built at tester.pumpWidget(), the MaterialApp should be in dark theme",
       );
-      await tester.tap(find.byKey(Key("themeicon")));
+      await tester.tap(find.byKey(const Key("themeicon")));
     });
 
     /*   testWidgets('Testing ContactList screen', (WidgetTester tester) async {
@@ -119,7 +115,7 @@ void main() {
 
       currentTheme.switchTheme();
       mainfile.main();
-      expect(find.byKey(Key("myapp")), findsOneWidget);
+      expect(find.byKey(const Key("myapp")), findsOneWidget);
     });
 
     setUpAll(() {
@@ -149,22 +145,12 @@ void main() {
       await tester.pump();
       /*  await tester.tap(find.byKey(Key("tabbar")));
       await tester.pump(); */
-      await tester.tap(find.byKey(Key("datepicker")));
+      await tester.tap(find.byKey(const Key("datepicker")));
       await tester.pump();
 
-      expect(find.byKey(Key("contactlist")), findsOneWidget);
+      expect(find.byKey(const Key("contactlist")), findsOneWidget);
       await tester.pump();
     });
-
-    setUpAll(() {
-      // ↓ required to avoid HTTP error 400 mocked returns
-      HttpOverrides.global = null;
-    });
-    Widget createWidgetForerrorTesting({Widget? child}) {
-      return MaterialApp(
-        home: child,
-      );
-    }
 
     testWidgets('Testing contact list done screen',
         (WidgetTester tester) async {
@@ -173,8 +159,11 @@ void main() {
               child: Directionality(
                   textDirection: TextDirection.ltr,
                   child: BodyData(
+                    key: const Key("successdata"),
                     state: contactResponses,
                   )))));
+
+      expect(find.byKey(const Key("successdata")), findsOneWidget);
     });
 
     testWidgets('Testing contact list error screen',
@@ -187,7 +176,7 @@ void main() {
                     key: Key("error"),
                   )))));
 
-      expect(find.byKey(Key("error")), findsOneWidget);
+      expect(find.byKey(const Key("error")), findsOneWidget);
     });
   });
 }
