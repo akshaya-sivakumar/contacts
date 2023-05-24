@@ -4,10 +4,8 @@ import 'dart:io';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
-
 import 'package:contacts/model/contacts_model.dart';
 import 'package:contacts/repository/contacts_repo.dart';
-
 import 'package:test/test.dart';
 
 class MockCounterBloc extends MockBloc<ContactsEvent, ContactsState>
@@ -44,7 +42,7 @@ void mainBloc() {
       },
       wait: const Duration(seconds: 2),
       skip: 1,
-      errors: () => ["error"],
+      errors: () => [isA<ContactsDone>()],
     );
 
     final file = File('test/test_resources/contact.json').readAsStringSync();

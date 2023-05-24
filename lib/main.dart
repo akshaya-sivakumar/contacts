@@ -1,14 +1,17 @@
 import 'package:contacts/config.dart';
 import 'package:contacts/ui/screens/contact_list.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_driver/driver_extension.dart';
 
 import 'bloc/contacts/contacts_bloc.dart';
 
 void main() async {
+  enableFlutterDriverExtension();
+
   runApp(const MyApp(Key("myapp")));
   WidgetsFlutterBinding.ensureInitialized();
+
   //await currentTheme.retrieveBooleanValue();
 }
 
@@ -36,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         themeMode: currentTheme.currentTheme(),
         darkTheme: ThemeData(
           textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(primary: Colors.black)),
+              style: TextButton.styleFrom(foregroundColor: Colors.black)),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -45,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         ),
         theme: ThemeData(
           textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(primary: Colors.black)),
+              style: TextButton.styleFrom(foregroundColor: Colors.black)),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(

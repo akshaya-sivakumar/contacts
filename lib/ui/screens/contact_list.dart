@@ -1,5 +1,4 @@
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
-
 import 'package:contacts/model/contacts_model.dart';
 import 'package:contacts/ui/widgets/row_widget.dart';
 import 'package:contacts/ui/widgets/scaffold.dart';
@@ -56,14 +55,18 @@ class _ContactListState extends State<ContactList>
         ),
         floatingButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
-          key: const Key("datepicker"),
+          // Provide a Key to this button. This allows finding this
+          // specific button inside the test suite, and tapping it.
+          // ignore: prefer_const_constructors
+          key: Key("datepicker"),
           onPressed: () {
-            setState(() {
+            print("pressed");
+            /*    /*  setState(() {
               atoz = !atoz;
             });
             contactsBloc.add(SortContacts(contactlist, atoz));
-            contactsBloc.add(SortContacts(contactlist, atoz));
-            //   _selectDate(context);
+            contactsBloc.add(SortContacts(contactlist, atoz)); */
+            _selectDate(context); */
           },
           child: Text(atoz ? "Z to A" : "A to Z"),
         ),
@@ -89,7 +92,7 @@ class _ContactListState extends State<ContactList>
     );
   }
 
-/*   _selectDate(BuildContext context) async {
+  _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -101,7 +104,7 @@ class _ContactListState extends State<ContactList>
         selectedDate = selected;
       });
     }
-  } */
+  }
 
   Center loadData(BuildContext context) {
     return Center(
@@ -116,7 +119,9 @@ class BodyData extends StatefulWidget {
     Key? key,
     this.tabController,
     required this.state,
-  }) : super(key: key);
+  }) : super(
+          key: key,
+        );
 
   final TabController? tabController;
   final List state;

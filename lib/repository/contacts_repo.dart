@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:core';
-import 'package:http/http.dart' as http;
 
 import 'package:contacts/model/contacts_model.dart';
+import 'package:http/http.dart' as http;
 
 class ContactsRepository {
   static String url =

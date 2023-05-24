@@ -3,18 +3,15 @@ import 'dart:io';
 
 import 'package:contacts/bloc/contacts/contacts_bloc.dart';
 import 'package:contacts/config.dart';
-
+import 'package:contacts/main.dart' as mainfile;
 import 'package:contacts/model/contacts_model.dart';
 import 'package:contacts/repository/contacts_repo.dart';
 import 'package:contacts/ui/screens/contact_list.dart';
-
 import 'package:contacts/ui/widgets/row_widget.dart';
 import 'package:contacts/ui/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:contacts/main.dart' as mainfile;
 
 void main() {
   group('ContactList Widget ', () {
@@ -111,7 +108,7 @@ void main() {
     testWidgets('Testing main screen', (WidgetTester tester) async {
       ContactsRepository.url =
           "http://5e53a76a31b9970014cf7c8c.mockapi.io/msf/getContacts";
-      await tester.pumpWidget(const mainfile.MyApp(Key("myapp")));
+    await tester.pumpWidget(const mainfile.MyApp(Key("myapp")));
 
       currentTheme.switchTheme();
       mainfile.main();
